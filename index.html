@@ -42,6 +42,15 @@
 						<small><a href="http://www.geoplex.com.au">Geoplex</a> / <a href="http://twitter.com/mapbutcher">@mapbutcher</a> / <a href="http://twitter.com/jeromepradeep">@jeromepradeep</a></small>
 					</p>
 				</section>
+				<section id="cover">
+						<h2>What are we going to talk about?</h2>
+						<ol>
+							<li class="fragment"><code>What is Elasticsearch..and what is it not</code></li>
+							<li class="fragment"><code>Importing spatial data</code></li>
+							<li class="fragment"><code>Queries</code></li>
+							<li class="fragment"><code>Kibana</code></li>
+						</ol>
+				</section>
 				<section id="whatiselasticsearch">
 					<h3>What is Elasticsearch?</h3>
 					<p>
@@ -57,8 +66,10 @@
 						<ol>
 							<li class="fragment"><code>Unstructured and Structured Search</code></li>
 							<li class="fragment"><code>Distributed & Highly Available</code></li>
-							<li class="fragment"><code>Restful API</code></li>
+							<li class="fragment"><code>Well documented Restful API</code></li>
 							<li class="fragment"><code>Analysis i.e. aggregates</code></li>
+							<li class="fragment"><code>.....and ofcourse it has Geospatial goodies!</code></li>
+
 						</ol>
 				</section>
 				<section id="not">
@@ -70,20 +81,87 @@
 							<li class="fragment"><code>The answer to all your problems</code></li>
 						</ol>
 				</section>
-				<section id="cover">
-						<h2>What are we going to talk about?</h2>
-						<ol>
-							<li class="fragment"><code>Why bother?</code></li>
-							<li class="fragment"><code>Getting spatial data in</code></li>
-							<li class="fragment"><code>Queries</code></li>
-							<li class="fragment"><code>Aggregates</code></li>
-							<li class="fragment"><code>Kibana</code></li>
-						</ol>
-						<p><code>All of the content is available in this <a href="https://www.gitbook.io/book/mapbutcher/using-spatial-data-in-elasticsearch">gitbook</a></code></p>
-						<p>https://www.gitbook.io/book/mapbutcher/using-spatial-data-in-elasticsearch</p>
-				</section>
 				<section id="whybother">
 						<h2>Why bother?</h2>
+						<ol>
+							<li class="fragment"><code>When you want to deal with alot of 'event' data</code></li>
+							<li class="fragment"><code>When you want to have a better search experience</code></li>
+							<li class="fragment"><code>When you want to service alot of demand</code></li>
+							<li class="fragment"><code>When you want to deal with unstructured data</code></li>
+							<li class="fragment"><code>Because searching for stuff on maps often sucks!</code></li>
+						</ol>
+				</section>
+				<section id="datain1">
+						<h2>Getting Spatial Data In</h2>
+						<ol>
+							<li class="fragment"><code>Indexes - think of it as a database</code></li>
+							<li class="fragment"><code>Documents - are stored in indexes and are modelled as JSON</code></li>
+							<li class="fragment"><code>Types - Indexes can contain types of documents - think of these as tables</code></li>
+							<li class="fragment"><code>Mapping - define the schema of a type - automatically inferred by Elasticsearch</code></li>
+							<li class="fragment"><code>Types - a datatype for the fields in documents</code></li>
+						</ol>
+				</section>
+				<section id="datainstep1">
+						<h2>1. Create Index</h2>
+						<pre><code data-trim contenteditable>
+$ curl -XPUT 'http://localhost:9200/accidents/'
+						</code></pre>
+				</section>
+				<section id="datainstep2">
+						<h2>2. Insert Mapping</h2>
+						<pre><code data-trim contenteditable>
+							curl -s -XGET "http://127.0.0.1:9200/accidents/accident/_mapping?pretty=true" > mapping.json
+						</code></pre>
+						<p>By default Elasticsearch does not automatically create the correct field types for Geospatial data, therefore we have to explicitly create a mapping which includes the correct Geospatial type.</p>
+				</section>
+				<section id="datainstep3">
+						<h2>3. Load record</h2>
+						<pre><code data-trim contenteditable>
+							insert example curl request
+						</code></pre>
+				</section>
+				<section id="Pyes">
+						<h2>Pyes</h2>
+						<pre><code data-trimcontenteditable>
+import pyes
+conn = pyes.ES('127.0.0.1:9200', timeout=60)
+conn.index('mydata','myindex','mytype','mykey')
+						</code></pre>
+				</section>
+				<section id="A quick word about rivers">
+						<h2>A quick word about Rivers</h2>
+						<p>......be careful</p>
+				</section>
+				<section id="queries1">
+						<h2>Geoshape Filter</h2>
+						<a href="https://github.com/geoplex/elasticsearch-spatial/blob/master/sample-queries/geo_shape_filter.txt" target="_blank"><blockquote>"Identify all accidents which occurred within a particular area"</blockquote></a>
+						<!-- <p>Useful for if you want to pass arbitrary shapes to Elasticsearch i.e. user draws area on map</p> -->
+				</section>
+				<section id="queries2">
+						<h2>Pre-indexed Geoshape Filter</h2>
+						<em>Identify all accidents which occurred within Melbourne.</em>
+						<!-- <p>Useful for if you have well known boundaries which you want to query on i.e. locality or suburbs</p> -->
+				</section>
+				<section id="queries3">
+						<h2>Geo Distance Filter</h2>
+						<em>Identify all accidents which occurred within 50m of this intersection.</em>
+				</section>
+				<section id="queries4">
+						<h2>Geo Distance Sort</h2>
+						<!-- <p>Identify all accidents which occurred within 50m of this intersection...and sort them.</p> -->
+				</section>
+				<section id="queries5">
+						<h2>Geo Distance Aggregation</h2>
+						<p>Identify all accidents which occurred less than 50m and between 50m to 100m of this intersection...and group by day of the week.</p>
+				</section>
+				<section id="kibana">
+						<h2>Kibana</h2>
+						<h3>Example</h3>
+				</section>
+				<section id="cover">
+						<h2>Resources</h2>
+						<p><code>All of the content is available in this <a href="https://www.gitbook.io/book/mapbutcher/using-spatial-data-in-elasticsearch">gitbook</a></code></p>
+						<img src="img/book.png"></img>
 				</section>
 			</div>
 
