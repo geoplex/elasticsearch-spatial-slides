@@ -44,12 +44,12 @@
 				</section>
 				<section id="cover">
 						<h2>What are we going to talk about?</h2>
-						<ol>
-							<li class="fragment"><code>What is Elasticsearch..and what is it not</code></li>
-							<li class="fragment"><code>Importing spatial data</code></li>
-							<li class="fragment"><code>Queries</code></li>
-							<li class="fragment"><code>Kibana</code></li>
-						</ol>
+						<ul>
+							<li><code>Elasticsearch..what it is and isn't</code></li>
+							<li><code>Importing spatial data</code></li>
+							<li><code>Queries</code></li>
+							<li><code>Kibana</code></li>
+						</ul>
 				</section>
 				<section id="whatiselasticsearch">
 					<h3>What is Elasticsearch?</h3>
@@ -59,47 +59,57 @@
 					</code>
 				</p>
 					<p><code>or...</code></p>
-					<p><code>A fancy wrapper around Lucene</code></p>
+					<p><code>"A fancy wrapper around Lucene" (cc @j_s_n_d)</code></p>
 				</section>
 				<section id="highlights">
 						<h2>Some Highlights</h2>
-						<ol>
-							<li class="fragment"><code>Unstructured and Structured Search</code></li>
-							<li class="fragment"><code>Distributed & Highly Available</code></li>
-							<li class="fragment"><code>Well documented Restful API</code></li>
-							<li class="fragment"><code>Analysis i.e. aggregates</code></li>
-							<li class="fragment"><code>.....and ofcourse it has Geospatial goodies!</code></li>
-
-						</ol>
+						<h4>Interrogate your data</h4>
+						<ul>
+							<li><code><strong>Structured</strong>: Give me all emails sent by Simon</code></li>
+							<li><code><strong>Unstructured</strong>: Give me all emails where someone mentioned Edward Snowden</code></li>
+							<li><code><strong>Analyse</strong>: What is the average number of emails Simon writes relating to Edward Snowden</code></li>
+						</ul>
+				</section>
+				<section id="highlights1">
+						<h2>Some Highlights</h2>
+						<h4>Distributed & Highly Available</h4>
+				</section>				
+				<section id="highlights2">
+						<h2>Some Highlights</h2>
+						<h4>Well documented Restful API</h4>
+				</section>
+				<section id="highlights4">
+						<h2>Some Highlights</h2>
+						<h4>.....and ofcourse it has Geospatial goodies!</h4>
 				</section>
 				<section id="not">
 						<h2>What is Elasticsearch....not</h2>
-						<ol>
-							<li class="fragment"><code>A GIS</code></li>
-							<li class="fragment"><code>Something to make maps with</code></li>
-							<li class="fragment"><code>A persistant store</code></li>
-							<li class="fragment"><code>The answer to all your problems</code></li>
-						</ol>
+						<ul>
+							<li><code>A GIS</code></li>
+							<li><code>Something to make maps with</code></li>
+							<li><code>A persistant store</code></li>
+							<li><code>The answer to all your problems</code></li>
+						</ul>
 				</section>
 				<section id="whybother">
 						<h2>Why bother?</h2>
-						<ol>
-							<li class="fragment"><code>When you want to deal with alot of 'event' data</code></li>
-							<li class="fragment"><code>When you want to have a better search experience</code></li>
-							<li class="fragment"><code>When you want to service alot of demand</code></li>
-							<li class="fragment"><code>When you want to deal with unstructured data</code></li>
-							<li class="fragment"><code>Because searching for stuff on maps often sucks!</code></li>
-						</ol>
+						<ul>
+							<li><code>When you want to deal with alot of 'event' data</code></li>
+							<li><code>When you want to have a better search experience</code></li>
+							<li><code>When you want to service alot of demand</code></li>
+							<li><code>When you want to deal with unstructured data</code></li>
+							<li><code>Because searching for stuff on maps often sucks!</code></li>
+						</ul>
 				</section>
 				<section id="datain1">
 						<h2>Getting Spatial Data In</h2>
-						<ol>
-							<li class="fragment"><code>Indexes - think of it as a database</code></li>
-							<li class="fragment"><code>Documents - are stored in indexes and are modelled as JSON</code></li>
-							<li class="fragment"><code>Types - Indexes can contain types of documents - think of these as tables</code></li>
-							<li class="fragment"><code>Mapping - define the schema of a type - automatically inferred by Elasticsearch</code></li>
-							<li class="fragment"><code>Types - a datatype for the fields in documents</code></li>
-						</ol>
+						<ul>
+							<li><code>Indexes - think of it as a database</code></li>
+							<li><code>Documents - are stored in indexes and are modelled as JSON</code></li>
+							<li><code>Types - Indexes can contain types of documents - think of these as tables</code></li>
+							<li><code>Mapping - define the schema of a type - automatically inferred by Elasticsearch</code></li>
+							<li><code>Types - a datatype for the fields in documents</code></li>
+						</ul>
 				</section>
 				<section id="datainstep1">
 						<h2>1. Create Index</h2>
@@ -134,25 +144,31 @@ conn.index('mydata','myindex','mytype','mykey')
 				</section>
 				<section id="queries1">
 						<h2>Geoshape Filter</h2>
-						<a href="https://github.com/geoplex/elasticsearch-spatial/blob/master/sample-queries/geo_shape_filter.json" target="_blank"><blockquote>"Identify all accidents which occurred within a particular area"</blockquote></a>
+						<a href="http://sense.qbox.io/gist/a8fc88dc2f6296e4e91535c2d38669105ca8e579" target="_blank"><blockquote>"Identify all accidents which occurred within a particular area"</blockquote></a>
 						<!-- <p>Useful for if you want to pass arbitrary shapes to Elasticsearch i.e. user draws area on map</p> -->
 				</section>
 				<section id="queries2">
 						<h2>Pre-indexed Geoshape Filter</h2>
-						<a href="https://github.com/geoplex/elasticsearch-spatial/blob/master/sample-queries/geo_shape_preindexed.json" target="_blank"><blockquote>"Identify all accidents which occurred within Melbourne."</blockquote></a>
+						<a href="http://sense.qbox.io/gist/4b3e963ad16c4c16d51cced117772594d2ecea2e" target="_blank"><blockquote>"Identify all accidents which occurred within Melbourne."</blockquote></a>
 						<!-- <p>Useful for if you have well known boundaries which you want to query on i.e. locality or suburbs</p> -->
 				</section>
 				<section id="queries3">
 						<h2>Geo Distance Filter</h2>
-						<a href="https://github.com/geoplex/elasticsearch-spatial/blob/master/sample-queries/geo_distance.json" target="_blank"><blockquote>"Identify all accidents which occurred within 50m of this intersection."</blockquote></a>
+						<a href="http://sense.qbox.io/gist/4a41790baa46c44695106c3ae5287308ede0d7f0" target="_blank"><blockquote>"Identify all accidents which occurred within 50m of this intersection."</blockquote></a>
 				</section>
 				<section id="queries4">
 						<h2>Geo Distance Sort</h2>
-						<a href="https://github.com/geoplex/elasticsearch-spatial/blob/master/sample-queries/geo_distance_sort.json" target="_blank"><blockquote>"Identify closest 10 accidents which occurred near this intersection...and sort them."</blockquote></a>											
+						<a href="http://sense.qbox.io/gist/ab2ec59750937fbc55102cf3c16f4c6d0539b776" target="_blank"><blockquote>"Identify closest 10 accidents which occurred near this intersection...and sort them."</blockquote></a>											
 				</section>
 				<section id="queries5">
 						<h2>Geo Distance Aggregation</h2>
-						<a href="https://github.com/geoplex/elasticsearch-spatial/blob/master/sample-queries/geo_distance_agg.json" target="_blank"><blockquote>"Identify accidents which occurred less than 50m and between 50m to 100m of this intersection...and group by day of the week."</blockquote></a>	
+						<a href="http://sense.qbox.io/gist/7c3d7b099509e9fc755bf58f281d63ee546e8341" target="_blank"><blockquote>"Identify accidents which occurred less than 50m and between 50m to 100m of this intersection...and group by day of the week."</blockquote></a>	
+				</section>
+				<section id="queries6">
+						<h2>Percolate</h2>
+						<h4>'Search in Reverse'</h4>
+						<a href="http://sense.qbox.io/gist/6677b6600894953b70a23bd7b21db3d225de555e" target="_blank"><blockquote>"Identify the suburb which this point falls within"</blockquote></a>
+						<aside class="notes">“Search in reverse” is a good way to conceptualize what Percolation does. Searching with Elasticsearch is usually done by querying a set of documents for relevance to the search. Percolate works in the opposite way, however, Percolating your documents against registered queries (percolators) for matches.</aside>
 				</section>
 				<section id="kibana">
 						<h2>Kibana</h2>
@@ -181,7 +197,7 @@ conn.index('mydata','myindex','mytype','mykey')
 				center: true,
 
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+				transition: Reveal.getQueryHash().transition || 'none', // default/cube/page/concave/zoom/linear/fade/none
 
 				// Parallax scrolling
 				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
