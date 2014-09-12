@@ -39,8 +39,9 @@
 				<section>
 					<h1>Introduction to the Geospatial Goodies in Elasticsearch</h1>
 					<p>
-						<small><a href="http://www.geoplex.com.au">Geoplex</a> / <a href="http://twitter.com/mapbutcher">@mapbutcher</a> / <a href="http://twitter.com/jeromepradeep">@jeromepradeep</a></small>
+						<a href="http://twitter.com/mapbutcher">@mapbutcher</a> / <a href="http://twitter.com/jeromepradeep">@jeromepradeep</a></small>
 					</p>
+					<img src="img/logo.png" style="border:0;"/>
 				</section>
 				<section id="cover">
 						<h2>What are we going to talk about?</h2>
@@ -58,25 +59,28 @@
 						An Open Source, Distributed, RESTful Search Engine
 					</code>
 				</p>
-					<p><code>or...</code></p>
-					<p><code>"A fancy wrapper around Lucene" (cc @j_s_n_d)</code></p>
+					<p class="fragment"><code>or...</br>
+					"A fancy wrapper around Lucene" (cc @j_s_n_d)</code></p>
 				</section>
 				<section id="highlights">
 						<h2>Some Highlights</h2>
 						<h4>Interrogate your data</h4>
 						<ul>
 							<li><code><strong>Structured</strong>: Give me all emails sent by Simon</code></li>
-							<li><code><strong>Unstructured</strong>: Give me all emails where someone mentioned Edward Snowden</code></li>
+							<li><code><strong>Unstructured</strong>: Give me all emails where Simon mentioned Edward Snowden</code></li>
 							<li><code><strong>Analyse</strong>: What is the average number of emails Simon writes relating to Edward Snowden</code></li>
 						</ul>
 				</section>
 				<section id="highlights1">
 						<h2>Some Highlights</h2>
 						<h4>Distributed & Highly Available</h4>
+						<img src="img/es-cluster.png"><img>
+						<aside class="notes">Elasticsearch is built to be always available, and to scale with your needs. Real scalability comes from horizontal scale — the ability to add more nodes to the cluster and to spread load and reliability between them. Elasticsearch is distributed by nature: it knows how to manage multiple nodes to provide scale and high availability.A node is a running instance of Elasticsearch, while a cluster consists of one or more nodes with the same cluster.name that are working together to share their data and workload. As nodes are added to or removed from the cluster, the cluster reorganizes itself to spread the data evenly.</aside>
 				</section>				
 				<section id="highlights2">
 						<h2>Some Highlights</h2>
 						<h4>Well documented Restful API</h4>
+						<img src="img/api.png"></img>
 				</section>
 				<section id="highlights4">
 						<h2>Some Highlights</h2>
@@ -108,7 +112,7 @@
 							<li><code>Documents - are stored in indexes and are modelled as JSON</code></li>
 							<li><code>Types - Indexes can contain types of documents - think of these as tables</code></li>
 							<li><code>Mapping - define the schema of a type - automatically inferred by Elasticsearch</code></li>
-							<li><code>Types - a datatype for the fields in documents</code></li>
+							<li><code>Types - a datatype for the fields in documents - Important Types - Geo Shape & Geo Point</code></li>
 						</ul>
 				</section>
 				<section id="datainstep1">
@@ -120,14 +124,33 @@ $ curl -XPUT 'http://localhost:9200/accidents/'
 				<section id="datainstep2">
 						<h2>2. Insert Mapping</h2>
 						<pre><code data-trim contenteditable>
-							curl -s -XGET "http://127.0.0.1:9200/accidents/accident/_mapping?pretty=true" > mapping.json
+$ curl -XPUT '127.0.01:9200/suburbs/_mapping/suburb' --data @mapping.json
 						</code></pre>
 						<p>By default Elasticsearch does not automatically create the correct field types for Geospatial data, therefore we have to explicitly create a mapping which includes the correct Geospatial type.</p>
 				</section>
 				<section id="datainstep3">
 						<h2>3. Load record</h2>
 						<pre><code data-trim contenteditable>
-							insert example curl request
+$ curl -XPUT 'http://localhost:9200/suburbs/suburb/0' -d '{
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+            ....
+    },
+    "type": "Feature",
+    "id": "0",
+    "properties": {
+        "PFI": "205408870",
+        "LOCALITY": "PASTORIA",
+        "GAZLOC": "PASTORIA",
+        "VICNAMESID": 102463,
+        "PFI_CR": "2005-09-27",
+        "UFI": 468965928,
+        "UFI_CR": "2013-10-24",
+        "UFI_OLD": 300944123,
+        "POST_CODE": null
+    }
+}'
 						</code></pre>
 				</section>
 				<section id="Pyes">
@@ -137,6 +160,7 @@ import pyes
 conn = pyes.ES('127.0.0.1:9200', timeout=60)
 conn.index('mydata','myindex','mytype','mykey')
 						</code></pre>
+						<p class="fragment">Choose your poison...perl, python, ruby, php, java,	javascript, .net, haskell, scala, clojure, go, erland, eventmachine, command line, ocaml, smalltalk, nodejs.......and COLDFUSION!</p>
 				</section>
 				<section id="A quick word about rivers">
 						<h2>A quick word about Rivers</h2>
@@ -171,10 +195,11 @@ conn.index('mydata','myindex','mytype','mykey')
 						<aside class="notes">“Search in reverse” is a good way to conceptualize what Percolation does. Searching with Elasticsearch is usually done by querying a set of documents for relevance to the search. Percolate works in the opposite way, however, Percolating your documents against registered queries (percolators) for matches.</aside>
 				</section>
 				<section id="kibana">
-						<h2>Kibana</h2>
-						<h3>Example</h3>
+						<h2>Clients & Plugins</h2>
+						<h3>Kibana, Head</h3>
+						<p>mention marvel and paramedic</p>
 				</section>
-				<section id="cover">
+				<section id="resources">
 						<h2>Resources</h2>
 						<p><code>All of the content is available in this <a href="https://www.gitbook.io/book/mapbutcher/using-spatial-data-in-elasticsearch">gitbook</a></code></p>
 						<img src="img/book.png"></img>
